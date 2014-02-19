@@ -40,7 +40,10 @@ Route::filter('auth', function()
 
 Route::filter('administrador', function()
 {
-    if (Auth::user()->rol != 'administrador') return Redirect::to('login');
+    if (Auth::user()->rol != 'administrador')
+    {
+    	return Redirect::to('login');
+    }
 });
 
 

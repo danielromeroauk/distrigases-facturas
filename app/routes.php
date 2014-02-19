@@ -13,14 +13,14 @@
 
 Route::get('/', function()
 {
-	return View::make('layouts.master');
+    return View::make('layouts.master');
 });
 
 Route::post('users/index', 'UserController@postIndex');
 Route::get('logout', 'UserController@getLogout');
 Route::get('login', 'UserController@getLogout');
 
-Route::group(array('before' => 'administrador'), function(){
+Route::group(array('before' => 'auth|administrador'), function(){
     Route::get('users/listado', 'UserController@getListado');
     Route::get('users/editar', 'UserController@getEditar');
     Route::post('users/editar', 'UserController@postEditar');
