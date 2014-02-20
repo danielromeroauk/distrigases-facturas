@@ -62,7 +62,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="glyphicon glyphicon-user"></span>
-              {{ Auth::user()->nombre }} <b class="caret"></b>
+              {{ strtoupper(Auth::user()->nombre) }} <b class="caret"></b>
             </a>
 
             <ul class="dropdown-menu">
