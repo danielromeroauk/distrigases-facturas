@@ -34,7 +34,12 @@
 
     <link href='http://fonts.googleapis.com/css?family=Oswald|Merriweather+Sans|Open+Sans|Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 
+    {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/jquery-ui.js" />--}}
+    {{-- HTML::script('js/jquery-ui.js') --}}
+
     {{ HTML::style('css/distrigases.css') }}
+
+    {{-- HTML::script('js/distrigases.js') --}}
 
 </head>
 <body>

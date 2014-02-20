@@ -4,6 +4,14 @@
 
 <div class="container">
 
+    <h1>Usuarios</h1>
+
+    <a href="{{ url('users/nuevo') }}" class="btn btn-success btn-xs">
+        <span class="glyphicon glyphicon-plus"></span>
+        Nuevo
+    </a>
+    <p></p>
+
     <table class="table table hover table-striped table-hover">
         <tbody>
             <thead>

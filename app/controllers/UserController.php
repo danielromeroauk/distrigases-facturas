@@ -210,4 +210,58 @@ public function postEditar()
 
     } #postEditar
 
+    public function getNuevo()
+    {
+        $usuario = new User();
+
+        return View::make('users.nuevo')->with(compact('usuario'));
+
+    } #getNuevo
+
+    public function postNuevo()
+    {
+        $input = Input::all();
+
+        $reglas = array(
+            'password' => 'required',
+            'email' => 'required|email|max:255',
+            'nombre' => 'required|max:255',
+            'password2' => 'confirmed|min:5|max:100'
+        );
+
+        $validador = Validator::make($input, $reglas);
+
+        if($validador->passes())
+        {
+            $usuario = Auth::user();
+            $chequeo = Hash::check($input['password'], $usuario->password);
+
+            if($chequeo)
+            {
+                $usuario = new User();
+                $usuario->email = $input['email'];
+                $usuario->nombre = $input['nombre'];
+                $usuario->notas = $input['notas'];
+                $usuario->password = Hash::make($input['password2']);
+                $usuario->rol = 'facturador';
+                $usuario->save();
+
+                Session::flash('mensajeOk', 'El nuevo usuario se ha registrado con éxito.');
+
+                return Redirect::to('users/editar/'. $usuario->id);
+
+            } else {
+
+                Session::flash('mensajeError', 'El password no es válido.');
+
+                return Redirect::to('users/nuevo')->withInput();
+            }
+
+        } else {
+
+            return Redirect::to('users/nuevo')->withErrors($validador)->withInput();
+        }
+
+    } #postNuevo
+
 } #UserController

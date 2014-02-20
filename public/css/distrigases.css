@@ -1,6 +1,22 @@
-body{font:"Merriweather Sans",sans-serif}
-h1{font-family:"Oswald",sans-serif}
-#menu-top .btn.btn-default{background:rgba(221,72,20,0.99)}
-#menu-top .navbar-brand{font-family:"Oswald",sans-serif;font-size:1.5em;padding:0 0 0 .5em;text-shadow:1px 1px 0 #e6e6e6,2px 2px 1px #c8c8c8,3px 3px 0 #000,4px 4px 17px rgba(0,0,0,0.5);}
-#menu-top .navbar-brand img{vertical-align:top}
-#menu-top .navbar-brand span{position:relative;top:15px}
+body {
+  font: "Merriweather Sans", sans-serif;
+}
+h1 {
+  font-family: "Oswald", sans-serif;
+}
+#menu-top .btn.btn-default {
+  background: rgba(221,72,20,0.99);
+}
+#menu-top .navbar-brand {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5em;
+  padding: 0 0 0 0.5em;
+  text-shadow: 1px 1px 0px #e6e6e6, 2px 2px 1px #c8c8c8, 3px 3px 0px #000, 4px 4px 17px rgba(0,0,0,0.5);
+}
+#menu-top .navbar-brand img {
+  vertical-align: top;
+}
+#menu-top .navbar-brand span {
+  position: relative;
+  top: 15px;
+}
