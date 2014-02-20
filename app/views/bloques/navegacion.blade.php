@@ -39,7 +39,7 @@
           </li>
 
           <li>
-              <a href="#">
+              <a href="{{ url('clients/listado') }}">
                   <span class="glyphicon glyphicon-phone-alt"></span>
                   Clientes
               </a>

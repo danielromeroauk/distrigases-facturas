@@ -28,11 +28,7 @@ Route::group(array('before' => 'auth|administrador'), function(){
 
 Route::group(array('before' => 'auth'), function() {
     Route::controller('users', 'UserController');
-});
-
-Route::get('test', function()
-{
-    return View::make('bloques.navprueba');
+    Route::controller('clients', 'ClientController');
 });
 
 /*

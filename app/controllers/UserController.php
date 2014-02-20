@@ -5,7 +5,8 @@ class UserController extends BaseController {
     public function getIndex()
     {
         return Redirect::to('/');
-    }
+
+    } #getIndex
 
     public function postIndex()
     {

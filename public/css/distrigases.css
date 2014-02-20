@@ -20,3 +20,7 @@ h1 {
   position: relative;
   top: 15px;
 }
+.buscador {
+  padding-left: 0;
+  padding-right: 0;
+}

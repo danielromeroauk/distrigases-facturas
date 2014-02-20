@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         @section('title')
-            SISTEMA DE FACTURACIÓN
+            Facturación Distrigases
         @show
     </title>
 
