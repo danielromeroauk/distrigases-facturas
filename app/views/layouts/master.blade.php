@@ -47,5 +47,7 @@
     @include('bloques.alertas')
 
     @yield('contenido')
+
+    @include('bloques.pie')
 </body>
 </html>

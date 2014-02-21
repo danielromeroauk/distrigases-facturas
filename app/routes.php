@@ -29,12 +29,13 @@ Route::group(array('before' => 'auth|administrador'), function(){
 Route::group(array('before' => 'auth'), function() {
     Route::controller('users', 'UserController');
     Route::controller('clients', 'ClientController');
+    Route::controller('articles', 'ArticleController');
 });
 
 /*
 Para evitar errores de parámetros en la url, es una medida preventiva.
  */
-Route::get('/{x?}/{y?}/{z?}', function($x=null,$y=null,$z=null)
-{
-    return Redirect::to('/');
-});
+// Route::get('/{x?}/{y?}/{z?}', function($x=null,$y=null,$z=null)
+// {
+//     return Redirect::to('/');
+// });

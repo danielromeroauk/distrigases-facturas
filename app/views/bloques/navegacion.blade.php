@@ -32,7 +32,7 @@
             @endif
 
           <li>
-              <a href="#">
+              <a href="{{ url('articles/listado') }}">
                   <span class="glyphicon glyphicon-shopping-cart"></span>
                   Artículos
               </a>
