@@ -6,9 +6,11 @@
 
     <h1>Artículos</h1>
 
+
     {{ Form::open(array('url' => 'articles/filtro', 'class' => 'form-inline', 'role' => 'form', 'method' => 'get')) }}
 
-        <div class="buscador col-xs-12 col-sm-7">
+        <div class="buscador col-md-6 col-sm-9 col-xs-10 col-lg-10">
+
             <div class="input-group">
 
                 <span class="input-group-addon input-sm">
@@ -46,6 +48,51 @@
 
     <p> </p>
 
+    @foreach($articulos as $articulo)
+      <div class="col-sm-6 col-md-4">
+        <h3>
+            {{ $articulo->nombre }}
+            <a href="{{ url('articles/editar/'. $articulo->id) }}" class="btn btn-xs btn-warning">
+                <span class="glyphicon glyphicon-edit"></span>
+                Editar
+            </a>
+        </h3>
+        <ul class="list-group">
+            @if($articulo->notas != '')
+                <li class="list-group-item">
+                    {{ $articulo->notas }}
+                </li>
+            @endif
+            <li class="list-group-item">
+                Precio: {{ $articulo->precio }}
+            </li>
+            <li class="list-group-item">
+                IVA:
+                @if(is_numeric($articulo->iva))
+                    {{ $articulo->iva }}%
+                @else
+                    Excento
+                @endif
+            </li>
+            <li class="list-group-item">
+
+                {{ Form::open(array('url' => 'carrito/agregar', 'role' => 'form')) }}
+
+                    {{ Form::hidden('id', $articulo->id) }}
+
+                    {{ Form::input('number', 'cantidad', '1', array('class' => 'numero form-control input-sm')) }}
+                    <button class="btn btn-sm btn-info">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        Añadir
+                    </button>
+
+                {{ Form::close() }}
+            </li>
+        </ul>
+      </div>
+    @endforeach
+
+<?php /*
     <table class="table table hover table-striped table-hover">
         <tbody>
             <thead>
@@ -81,6 +128,7 @@
             @endforeach
         </tbody>
     </table>
+*/ ?>
 
     @if(isset($input))
         {{ $articulos->appends(array_except($input, 'page'))->links(); }}

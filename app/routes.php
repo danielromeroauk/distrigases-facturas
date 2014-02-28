@@ -30,6 +30,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::controller('users', 'UserController');
     Route::controller('clients', 'ClientController');
     Route::controller('articles', 'ArticleController');
+    Route::controller('carrito', 'CartController');
 });
 
 /*

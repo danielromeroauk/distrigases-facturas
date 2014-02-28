@@ -10,7 +10,7 @@ class ArticleController extends BaseController {
 
     public function getListado()
     {
-        $articulos = Article::OrderBy('nombre', 'asc')->paginate(10);
+        $articulos = Article::OrderBy('nombre', 'asc')->paginate(6);
 
         return View::make('articles.listado')->with(compact('articulos'));
 
@@ -25,17 +25,17 @@ class ArticleController extends BaseController {
 
         if($filtro == 'id')
         {
-            $articulos = Article::where('id', '=', $buscar)->paginate(10);
+            $articulos = Article::where('id', '=', $buscar)->paginate(6);
 
         } elseif ($filtro == 'notas') {
 
-            $articulos = Article::where('notas', 'like', '%'. $buscar .'%')->paginate(10);
+            $articulos = Article::where('notas', 'like', '%'. $buscar .'%')->paginate(6);
             $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en las notas.';
             Session::flash('mensajeOk', $mensaje);
 
         } elseif ($filtro == 'nombre') {
 
-            $articulos = Article::where('nombre', 'like', '%'. $buscar .'%')->paginate(10);
+            $articulos = Article::where('nombre', 'like', '%'. $buscar .'%')->paginate(6);
             $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en el nombre.';
             Session::flash('mensajeOk', $mensaje);
         }

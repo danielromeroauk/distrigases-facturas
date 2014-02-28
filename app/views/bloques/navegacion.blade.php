@@ -59,6 +59,17 @@
               </a>
           </li>
 
+          <li>
+            @if(Session::has('cart'))
+
+              <a href="{{ url('carrito/index') }}">
+                Carrito
+                <span class="badge">{{ count(Session::get('cart')) }}</span>
+              </a>
+
+            @endif
+        </li>
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="glyphicon glyphicon-user"></span>
