@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('nombre', 255);
-			$table->string('email', 255);
+			$table->string('email', 255)->unique();
 			$table->string('password', 100);
 			$table->enum('rol', array('administrador', 'facturador'))->default('facturador');
 			$table->string('notas', 255);

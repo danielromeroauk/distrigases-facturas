@@ -1,6 +1,6 @@
 <?php
 
-class ClientController extends BaseController {
+class ClienteController extends BaseController {
 
     public function getIndex()
     {
@@ -10,9 +10,9 @@ class ClientController extends BaseController {
 
     public function getListado()
     {
-        $clientes = Client::OrderBy('nombre', 'asc')->paginate(10);
+        $clientes = Cliente::OrderBy('nombre', 'asc')->paginate(10);
 
-        return View::make('clients.listado')->with(compact('clientes'));
+        return View::make('clientes.listado')->with(compact('clientes'));
 
     } #getListado
 
@@ -25,17 +25,17 @@ class ClientController extends BaseController {
 
         if($filtro == 'nit')
         {
-            $clientes = Client::where('nit', 'like', '%'. $buscar .'%')->paginate(10);
+            $clientes = Cliente::where('nit', 'like', '%'. $buscar .'%')->paginate(10);
 
         } elseif ($filtro == 'nombre') {
 
-            $clientes = Client::where('nombre', 'like', '%'. $buscar .'%')->paginate(10);
+            $clientes = Cliente::where('nombre', 'like', '%'. $buscar .'%')->paginate(10);
         }
 
         $mensaje = 'Clientes que contienen <strong>'. $buscar .'</strong> en el '. strtoupper($filtro);
         Session::flash('mensajeOk', $mensaje);
 
-        return View::make('clients.listado')->with(compact('clientes', 'input'));
+        return View::make('clientes.listado')->with(compact('clientes', 'input'));
 
     } #getFiltro
 
@@ -43,13 +43,13 @@ class ClientController extends BaseController {
     {
         if (is_numeric($id))
         {
-            $cliente = Client::find($id);
+            $cliente = Cliente::find($id);
 
-            return View::make('clients.editar')->with(compact('cliente'));
+            return View::make('clientes.editar')->with(compact('cliente'));
 
         } else {
 
-            return Redirect::to('clients/listado');
+            return Redirect::to('clientes/listado');
         }
 
     } #getEditar
@@ -76,7 +76,7 @@ public function postEditar()
 
             if($chequeo)
             {
-                $cliente = Client::find($input['id']);
+                $cliente = Cliente::find($input['id']);
                 $cliente->nit = $input['nit'];
                 $cliente->nombre = $input['nombre'];
                 $cliente->direccion = $input['direccion'];
@@ -88,27 +88,27 @@ public function postEditar()
 
                 Session::flash('mensajeOk', 'Los datos del cliente se han modificado con éxito.');
 
-                return Redirect::to('clients/editar/'. $cliente->id);
+                return Redirect::to('clientes/editar/'. $cliente->id);
 
             } else {
 
                 Session::flash('mensajeError', 'El password no es válido.');
 
-                return Redirect::to('clients/editar/'. $input['id'])->withInput();
+                return Redirect::to('clientes/editar/'. $input['id'])->withInput();
             }
 
         } else {
 
-            return Redirect::to('clients/editar/'. $input['id'])->withErrors($validador)->withInput();
+            return Redirect::to('clientes/editar/'. $input['id'])->withErrors($validador)->withInput();
         }
 
     } #postEditar
 
     public function getNuevo()
     {
-        $cliente = new Client();
+        $cliente = new Cliente();
 
-        return View::make('clients.nuevo')->with(compact('cliente'));
+        return View::make('clientes.nuevo')->with(compact('cliente'));
 
     } #getNuevo
 
@@ -117,7 +117,7 @@ public function postEditar()
         $input = Input::all();
 
         $reglas = array(
-            'nit' => 'required|max:100',
+            'nit' => 'required|max:100|unique:clientes',
             'nombre' => 'required|max:255',
             'direccion' => 'max:255',
             'telefono' => 'max:100',
@@ -134,7 +134,7 @@ public function postEditar()
 
             if($chequeo)
             {
-                $cliente = new Client();
+                $cliente = new Cliente();
                 $cliente->nit = $input['nit'];
                 $cliente->nombre = $input['nombre'];
                 $cliente->direccion = $input['direccion'];
@@ -146,18 +146,18 @@ public function postEditar()
 
                 Session::flash('mensajeOk', 'El nuevo cliente se ha registrado con éxito.');
 
-                return Redirect::to('clients/editar/'. $cliente->id);
+                return Redirect::to('clientes/editar/'. $cliente->id);
 
             } else {
 
                 Session::flash('mensajeError', 'El password no es válido.');
 
-                return Redirect::to('clients/nuevo')->withInput();
+                return Redirect::to('clientes/nuevo')->withInput();
             }
 
         } else {
 
-            return Redirect::to('clients/nuevo')->withErrors($validador)->withInput();
+            return Redirect::to('clientes/nuevo')->withErrors($validador)->withInput();
         }
 
     } #postNuevo

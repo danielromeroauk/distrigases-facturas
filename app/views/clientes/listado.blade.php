@@ -6,7 +6,7 @@
 
     <h1>Clientes</h1>
 
-    {{ Form::open(array('url' => 'clients/filtro', 'class' => 'form-inline', 'role' => 'form', 'method' => 'get')) }}
+    {{ Form::open(array('url' => 'clientes/filtro', 'class' => 'form-inline', 'role' => 'form', 'method' => 'get')) }}
 
         <div class="buscador col-xs-12 col-sm-7">
             <div class="input-group">
@@ -32,7 +32,7 @@
             Buscar
         </button>
 
-        <a href="{{ url('clients/nuevo') }}" class="btn btn-success btn-sm">
+        <a href="{{ url('clientes/nuevo') }}" class="btn btn-success btn-sm">
             <span class="glyphicon glyphicon-plus"></span>
             Nuevo
         </a>
@@ -55,9 +55,14 @@
                     <td>{{ $cliente->nit }}</td>
                     <td>{{ $cliente->nombre }}</td>
                     <td>
-                        <a href="{{ url('clients/editar/'. $cliente->id) }}" class="btn btn-xs btn-warning">
+                        <a href="{{ url('clientes/editar/'. $cliente->id) }}" class="btn btn-xs btn-warning">
                             <span class="glyphicon glyphicon-edit"></span>
                             Editar
+                        </a>
+
+                        <a href="{{ url('carrito/cliente/'. $cliente->id) }}" class="btn btn-xs btn-info">
+                            <span class="glyphicon glyphicon-check"></span>
+                            Al carrito
                         </a>
                     </td>
                 </tr>

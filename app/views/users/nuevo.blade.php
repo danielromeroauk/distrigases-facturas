@@ -3,32 +3,40 @@
 @section('contenido')
 
 <div class="container">
-    <div class="col-xs-10 col-sm-6 col-md-4">
+    <div class="col-md-8">
         <h1>Nuevo usuario</h1>
 
         {{ Form::open(array('url' => 'users/nuevo', 'role' => 'form')) }}
 
-            <div class="form-group">
-                {{ Form::label('password', 'Password de administrador', array('class' => 'label label-success')) }}
-                {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password de administrador', 'required')) }}
-                @if($errors->has('password'))
-                    {{ Form::label('password', $errors->first('password'), array('class' => 'label label-warning')) }}
-                @endif
-            </div>
-            <div class="form-group">
-                {{ Form::label('email', 'Email', array('class' => 'label label-success')) }}
+            <div class="input-group">
+                <span class="input-group-addon">Email: </span>
                 {{ Form::email('email', $usuario->email, array('class' => 'form-control', 'placeholder' => 'Email', 'required', 'maxlength' => '255')) }}
                 @if($errors->has('email'))
                     {{ Form::label('email', $errors->first('email'), array('class' => 'label label-warning')) }}
                 @endif
             </div>
-            <div class="form-group">
-                {{ Form::label('nombre', 'Nombre completo', array('class' => 'label label-success')) }}
+
+            <div class="input-group">
+                <span class="input-group-addon">Nombre: </span>
                 {{ Form::text('nombre', $usuario->nombre, array('class' => 'form-control', 'placeholder' => 'Nombre completo', 'required', 'maxlength' => '255')) }}
                 @if($errors->has('nombre'))
                     {{ Form::label('nombre', $errors->first('nombre'), array('class' => 'label label-warning')) }}
                 @endif
             </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">Password: </span>
+                {{ Form::password('password2', array('class' => 'form-control', 'placeholder' => 'Nuevo password', 'required')) }}
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">Confirmar password: </span>
+                {{ Form::password('password2_confirmation', array('class' => 'form-control', 'placeholder' => 'Nuevo password', 'required')) }}
+                @if($errors->has('password2'))
+                    {{ Form::label('password2', $errors->first('password2'), array('class' => 'label label-warning')) }}
+                @endif
+            </div>
+
             <div class="form-group">
                 {{ Form::label('notas', 'Datos adicionales', array('class' => 'label label-success')) }}
                 {{ Form::textarea('notas', $usuario->notas, array('class' => 'form-control', 'placeholder' => 'Cédula, cargo, teléfono, dirección, etc.', 'maxlength' => '255', 'rows' => '5')) }}
@@ -36,17 +44,16 @@
                     {{ Form::label('notas', $errors->first('notas'), array('class' => 'label label-warning')) }}
                 @endif
             </div>
-            <div class="form-group">
-                {{ Form::label('password2', 'Nuevo password', array('class' => 'label label-success')) }}
-                {{ Form::password('password2', array('class' => 'form-control', 'placeholder' => 'Nuevo password', 'required')) }}
-            </div>
-            <div class="form-group">
-                {{ Form::label('password2_confirmation', 'Confirmar nuevo password', array('class' => 'label label-success')) }}
-                {{ Form::password('password2_confirmation', array('class' => 'form-control', 'placeholder' => 'Nuevo password', 'required')) }}
-                @if($errors->has('password2'))
-                    {{ Form::label('password2', $errors->first('password2'), array('class' => 'label label-warning')) }}
+
+            <div class="input-group">
+                <span class="input-group-addon">Password: </span>
+                {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password de administrador', 'required')) }}
+                @if($errors->has('password'))
+                    {{ Form::label('password', $errors->first('password'), array('class' => 'label label-warning')) }}
                 @endif
             </div>
+
+            <p> </p>
 
             {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
             <a href="{{ url('users/listado') }}" class="btn btn-info">Ir a listado</a>

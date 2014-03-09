@@ -28,9 +28,9 @@ Route::group(array('before' => 'auth|administrador'), function(){
 
 Route::group(array('before' => 'auth'), function() {
     Route::controller('users', 'UserController');
-    Route::controller('clients', 'ClientController');
-    Route::controller('articles', 'ArticleController');
-    Route::controller('carrito', 'CartController');
+    Route::controller('clientes', 'ClienteController');
+    Route::controller('articulos', 'ArticuloController');
+    Route::controller('carrito', 'CarritoController');
 });
 
 /*

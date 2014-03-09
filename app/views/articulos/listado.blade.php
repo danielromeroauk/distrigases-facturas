@@ -7,7 +7,7 @@
     <h1>Artículos</h1>
 
 
-    {{ Form::open(array('url' => 'articles/filtro', 'class' => 'form-inline', 'role' => 'form', 'method' => 'get')) }}
+    {{ Form::open(array('url' => 'articulos/filtro', 'class' => 'form-inline', 'role' => 'form', 'method' => 'get')) }}
 
         <div class="buscador col-md-6 col-sm-9 col-xs-10 col-lg-10">
 
@@ -39,7 +39,7 @@
             Buscar
         </button>
 
-        <a href="{{ url('articles/nuevo') }}" class="btn btn-success btn-sm">
+        <a href="{{ url('articulos/nuevo') }}" class="btn btn-success btn-sm">
             <span class="glyphicon glyphicon-plus"></span>
             Nuevo
         </a>
@@ -58,6 +58,9 @@
             </a>
         </h3>
         <ul class="list-group">
+            <li class="list-group-item">
+                Id: {{ $articulo->id }}
+            </li>
             @if($articulo->notas != '')
                 <li class="list-group-item">
                     {{ $articulo->notas }}
@@ -91,44 +94,6 @@
         </ul>
       </div>
     @endforeach
-
-<?php /*
-    <table class="table table hover table-striped table-hover">
-        <tbody>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>IVA</th>
-                    <th>Notas</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            @foreach($articulos as $articulo)
-                <tr>
-                    <td>{{ $articulo->id }}</td>
-                    <td>{{ $articulo->nombre }}</td>
-                    <td>{{ $articulo->precio }}</td>
-                    <td>
-                        @if(is_numeric($articulo->iva))
-                            {{ $articulo->iva }}%
-                        @else
-                            Excento
-                        @endif
-                    </td>
-                    <td>{{ $articulo->notas }}</td>
-                    <td>
-                        <a href="{{ url('articles/editar/'. $articulo->id) }}" class="btn btn-xs btn-warning">
-                            <span class="glyphicon glyphicon-edit"></span>
-                            Editar
-                        </a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-*/ ?>
 
     @if(isset($input))
         {{ $articulos->appends(array_except($input, 'page'))->links(); }}

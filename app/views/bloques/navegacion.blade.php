@@ -32,39 +32,39 @@
             @endif
 
           <li>
-              <a href="{{ url('articles/listado') }}">
+              <a href="{{ url('articulos/listado') }}">
                   <span class="glyphicon glyphicon-shopping-cart"></span>
                   Artículos
               </a>
           </li>
 
           <li>
-              <a href="{{ url('clients/listado') }}">
+              <a href="{{ url('clientes/listado') }}">
                   <span class="glyphicon glyphicon-phone-alt"></span>
                   Clientes
               </a>
           </li>
 
           <li>
-              <a href="#">
+              <a href="{{ url('cotizaciones') }}">
                   <span class="glyphicon glyphicon-folder-open"></span>&nbsp;
                   Cotizaciones
               </a>
           </li>
 
           <li>
-              <a href="#">
+              <a href="{{ url('facturas') }}">
                   <span class="glyphicon glyphicon-briefcase"></span>
                   Facturas
               </a>
           </li>
 
           <li>
-            @if(Session::has('cart'))
+            @if(Session::has('carrito'))
 
               <a href="{{ url('carrito/index') }}">
                 Carrito
-                <span class="badge">{{ count(Session::get('cart')) }}</span>
+                <span class="badge">{{ count(Session::get('carrito')) }}</span>
               </a>
 
             @endif

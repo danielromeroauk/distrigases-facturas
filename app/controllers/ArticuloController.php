@@ -1,6 +1,6 @@
 <?php
 
-class ArticleController extends BaseController {
+class ArticuloController extends BaseController {
 
     public function getIndex()
     {
@@ -10,9 +10,9 @@ class ArticleController extends BaseController {
 
     public function getListado()
     {
-        $articulos = Article::OrderBy('nombre', 'asc')->paginate(6);
+        $articulos = Articulo::OrderBy('nombre', 'asc')->paginate(6);
 
-        return View::make('articles.listado')->with(compact('articulos'));
+        return View::make('articulos.listado')->with(compact('articulos'));
 
     } #getListado
 
@@ -25,22 +25,22 @@ class ArticleController extends BaseController {
 
         if($filtro == 'id')
         {
-            $articulos = Article::where('id', '=', $buscar)->paginate(6);
+            $articulos = Articulo::where('id', '=', $buscar)->paginate(6);
 
         } elseif ($filtro == 'notas') {
 
-            $articulos = Article::where('notas', 'like', '%'. $buscar .'%')->paginate(6);
+            $articulos = Articulo::where('notas', 'like', '%'. $buscar .'%')->paginate(6);
             $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en las notas.';
             Session::flash('mensajeOk', $mensaje);
 
         } elseif ($filtro == 'nombre') {
 
-            $articulos = Article::where('nombre', 'like', '%'. $buscar .'%')->paginate(6);
+            $articulos = Articulo::where('nombre', 'like', '%'. $buscar .'%')->paginate(6);
             $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en el nombre.';
             Session::flash('mensajeOk', $mensaje);
         }
 
-        return View::make('articles.listado')->with(compact('articulos', 'input'));
+        return View::make('articulos.listado')->with(compact('articulos', 'input'));
 
     } #getFiltro
 
@@ -48,13 +48,13 @@ class ArticleController extends BaseController {
     {
         if (is_numeric($id))
         {
-            $articulo = Article::find($id);
+            $articulo = Articulo::find($id);
 
-            return View::make('articles.editar')->with(compact('articulo'));
+            return View::make('articulos.editar')->with(compact('articulo'));
 
         } else {
 
-            return Redirect::to('articles/listado');
+            return Redirect::to('articulos/listado');
         }
 
     } #getEditar
@@ -79,7 +79,7 @@ public function postEditar()
             {
                 try
                 {
-                    $articulo = Article::find($input['id']);
+                    $articulo = Articulo::find($input['id']);
                     $articulo->nombre = $input['nombre'];
                     $articulo->notas = $input['notas'];
                     $articulo->precio = $input['precio'];
@@ -89,34 +89,34 @@ public function postEditar()
 
                     Session::flash('mensajeOk', 'Los datos del artículo se han modificado con éxito.');
 
-                    return Redirect::to('articles/editar/'. $articulo->id);
+                    return Redirect::to('articulos/editar/'. $articulo->id);
 
                 } catch (Exception $e) {
 
                     Session::flash('mensajeError', 'No se pudieron guardar los cambios porque el nombre del artículo ya existe en otro registro.');
 
-                    return Redirect::to('articles/editar/'. $input['id'])->withInput();
+                    return Redirect::to('articulos/editar/'. $input['id'])->withInput();
                 }
 
             } else {
 
                 Session::flash('mensajeError', 'El password no es válido.');
 
-                return Redirect::to('articles/editar/'. $input['id'])->withInput();
+                return Redirect::to('articulos/editar/'. $input['id'])->withInput();
             }
 
         } else {
 
-            return Redirect::to('articles/editar/'. $input['id'])->withErrors($validador)->withInput();
+            return Redirect::to('articulos/editar/'. $input['id'])->withErrors($validador)->withInput();
         }
 
     } #postEditar
 
     public function getNuevo()
     {
-        $articulo = new Article();
+        $articulo = new Articulo();
 
-        return View::make('articles.nuevo')->with(compact('articulo'));
+        return View::make('articulos.nuevo')->with(compact('articulo'));
 
     } #getNuevo
 
@@ -125,7 +125,7 @@ public function postEditar()
         $input = Input::all();
 
         $reglas = array(
-            'nombre' => 'required|max:255|unique:articles',
+            'nombre' => 'required|max:255|unique:articulos',
             'notas' => 'max:255'
         );
 
@@ -138,7 +138,7 @@ public function postEditar()
 
             if($chequeo)
             {
-                $articulo = new Article();
+                $articulo = new Articulo();
                 $articulo->nombre = $input['nombre'];
                 $articulo->notas = $input['notas'];
                 $articulo->precio = $input['precio'];
@@ -148,20 +148,20 @@ public function postEditar()
 
                 Session::flash('mensajeOk', 'El nuevo artículo se ha registrado con éxito.');
 
-                return Redirect::to('articles/editar/'. $articulo->id);
+                return Redirect::to('articulos/editar/'. $articulo->id);
 
             } else {
 
                 Session::flash('mensajeError', 'El password no es válido.');
 
-                return Redirect::to('articles/nuevo')->withInput();
+                return Redirect::to('articulos/nuevo')->withInput();
             }
 
         } else {
 
-            return Redirect::to('articles/nuevo')->withErrors($validador)->withInput();
+            return Redirect::to('articulos/nuevo')->withErrors($validador)->withInput();
         }
 
     } #postNuevo
 
-} #ArticleController
+} #ArticuloController

@@ -12,7 +12,7 @@
             <th>Acción</th>
         </thead>
         <tbody>
-            @foreach(Session::get('cart') as $item)
+            @foreach(Session::get('carrito') as $item)
                 <tr>
                     <td>
                         {{ $item['articulo']->id }}
@@ -24,7 +24,7 @@
                         {{ $item['cantidad'] }}
                     </td>
                     <td>
-                        <a href="{{  url('carrito/quitar-item/'. $item['articulo']->id) }}" class="btn btn-warning btn-xs">
+                        <a href="{{ url('carrito/quitar-item/'. $item['articulo']->id) }}" class="btn btn-warning btn-xs">
                             <span class="glyphicon glyphicon-remove"></span>
                             Quitar
                         </a>

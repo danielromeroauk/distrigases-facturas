@@ -225,7 +225,7 @@ public function postEditar()
 
         $reglas = array(
             'password' => 'required',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users',
             'nombre' => 'required|max:255',
             'password2' => 'confirmed|min:5|max:100'
         );

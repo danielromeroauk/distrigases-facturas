@@ -6,7 +6,7 @@
     <div class="col-xs-10 col-sm-6 col-md-4">
         <h1>Datos del artículo</h1>
 
-        {{ Form::open(array('url' => 'articles/nuevo', 'role' => 'form')) }}
+        {{ Form::open(array('url' => 'articulos/nuevo', 'role' => 'form')) }}
 
             <div class="form-group">
                 {{ Form::label('password', 'Password', array('class' => 'label label-success')) }}
@@ -46,7 +46,7 @@
             </div>
 
             {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
-            <a href="{{ url('articles/listado') }}" class="btn btn-info">Ir a listado</a>
+            <a href="{{ url('articulos/listado') }}" class="btn btn-info">Ir a listado</a>
 
         {{ Form::close() }}
     </div>

@@ -3,9 +3,9 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Article extends Eloquent {
+class Articulo extends Eloquent {
 
-	protected $table = 'articles';
+	protected $table = 'articulos';
 
 	public function user()
 	{

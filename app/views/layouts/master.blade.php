@@ -32,7 +32,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link href='http://fonts.googleapis.com/css?family=Oswald|Merriweather+Sans|Open+Sans|Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald|Merriweather+Sans|Open+Sans|Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css' />
 
     {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/jquery-ui.js" />--}}
     {{-- HTML::script('js/jquery-ui.js') --}}
