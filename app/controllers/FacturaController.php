@@ -52,7 +52,16 @@ class FacturaController extends BaseController
         {
             if(Session::has('carrito'))
             {
-                foreach (Session::get('carrito') as $item) {
+                $carrito = Session::get('carrito');
+
+                if(empty($carrito))
+                {
+                    $filasAfectadas = FacturaItem::where('factura_id', '=', $idFactura)->delete();
+
+                    return false;
+                }
+
+                foreach ($carrito as $item) {
                     $fi = new FacturaItem();
                     $fi->factura_id = $idFactura;
                     $fi->articulo_id = $item['articulo']->id;
