@@ -33,7 +33,7 @@
 
           <li>
               <a href="{{ url('articulos/listado') }}">
-                  <span class="glyphicon glyphicon-shopping-cart"></span>
+                  <span class="glyphicon glyphicon-barcode"></span>
                   Artículos
               </a>
           </li>
@@ -63,6 +63,7 @@
             @if(Session::has('carrito'))
 
               <a href="{{ url('carrito/index') }}">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
                 Carrito
                 <span class="badge">{{ count(Session::get('carrito')) }}</span>
               </a>
