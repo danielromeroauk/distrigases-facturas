@@ -4,7 +4,7 @@ class ArticuloController extends BaseController {
 
     public function getIndex()
     {
-        return Redirect::to('/');
+        return Redirect::to('articulos/listado');
 
     } #getIndex
 

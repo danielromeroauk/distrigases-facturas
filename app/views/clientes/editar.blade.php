@@ -68,7 +68,7 @@
             <p> </p>
 
             {{ Form::submit('Guardar cambios', array('class' => 'btn btn-primary')) }}
-            <a href="{{ url('clients/listado') }}" class="btn btn-info">Ir a listado</a>
+            <a href="{{ url('clientes/listado') }}" class="btn btn-info">Ir a listado</a>
 
         {{ Form::close() }}
     </div>
