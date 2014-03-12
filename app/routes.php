@@ -32,6 +32,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::controller('articulos', 'ArticuloController');
     Route::controller('carrito', 'CarritoController');
     Route::controller('facturas', 'FacturaController');
+    Route::controller('cotizaciones', 'CotizacionController');
 });
 
 /*

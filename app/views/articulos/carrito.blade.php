@@ -85,7 +85,40 @@
       </div>{{-- /#factura --}}
 
       <div class="tab-pane fade" id="cotizacion">
-        Aquí el formulario de cotización.
+
+        {{ Form::open(array('url' => 'cotizaciones/nueva')) }}
+
+          <div class="input-group">
+            <span class="input-group-addon">Cliente: </span>
+            {{ Form::text('nombre', (Session::has('cliente')) ? Session::get('cliente')->nombre : '', array('class' => 'form-control', 'placeholder' => 'Nombre completo o razón social', 'required', 'maxlength' => '255', 'disabled')) }}
+            <span class="input-group-addon">
+              <a href="{{ url('clientes/listado') }}">
+                <span class="glyphicon glyphicon-search"></span>
+                Examinar
+              </a>
+            </span>
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon">Concepto: </span>
+            {{ Form::text('concepto', 'En atención a su amable solicitud de cotización, me permito presentar mi propuesta comercial de la siguiente manera:', array('class' => 'form-control', 'placeholder' => 'Concepto', 'required', 'maxlength' => '255')) }}
+          </div>
+
+          <div class="form-group">
+            {{ Form::label('notas', 'Datos adicionales', array('class' => 'label label-primary')) }}
+            {{ Form::textarea('notas','', array('class' => 'form-control', 'placeholder' => 'Postdatas, caducidad de la cotización, etc.', 'maxlength' => '255', 'rows' => '3')) }}
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Guardar cotización
+          </button>
+
+          <a href="{{ url('cotizaciones') }}" class="btn btn-info">
+            Cancelar
+          </a>
+
+        {{ Form::close() }}
+
       </div>{{-- /#cotizacion --}}
 
     </div>{{-- /.tab-content --}}
