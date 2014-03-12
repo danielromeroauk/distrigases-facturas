@@ -52,7 +52,7 @@
     <div class="col-sm-6 col-md-4">
     <h3>
       {{ $articulo->nombre }}
-      <a href="{{ url('articles/editar/'. $articulo->id) }}" class="btn btn-xs btn-warning">
+      <a href="{{ url('articulos/editar/'. $articulo->id) }}" class="btn btn-xs btn-warning">
         <span class="glyphicon glyphicon-edit"></span>
         Editar
       </a>

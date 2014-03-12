@@ -48,7 +48,7 @@ class FacturaController extends BaseController
             Session::forget('cliente');
             Session::flash('mensajeOk', 'Has creado la factura '. $factura->id .' con éxito.');
 
-            return Redirect::to('/');
+            return Redirect::to('facturas/filtro-por-id/'. $factura->id);
 
         } catch (Exception $e) {
 
@@ -95,5 +95,29 @@ class FacturaController extends BaseController
         }
 
     } #guardarItems
+
+    public function getFiltroPorId($idFactura=0)
+    {
+        try
+        {
+            if($idFactura == 0)
+            {
+                $idFactura = Input::get('idFactura');
+            }
+
+            $facturas = Factura::where('id', '=', $idFactura)->orderBy('id', 'desc')->paginate(1);
+            Session::flash('mensajeOk', 'Se ha realizado la busqueda de la factura '. $idFactura);
+
+            return View::make('facturas.listado')
+                ->with(compact('facturas'));
+
+        } catch (Exception $e) {
+
+            Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar '. $idFactura);
+
+            return Redirect::to('facturas');
+        }
+
+    } #getfiltroPorId
 
 } #FacturaController

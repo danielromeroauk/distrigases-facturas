@@ -41,7 +41,7 @@
 
     <p> </p>
 
-    <table class="table table hover table-striped table-hover">
+    <table class="table table-striped table-hover">
         <tbody>
             <thead>
                 <tr>
