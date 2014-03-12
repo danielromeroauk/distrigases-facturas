@@ -39,7 +39,7 @@
 
     {{ HTML::style('css/distrigases.css') }}
 
-    {{-- HTML::script('js/distrigases.js') --}}
+    {{ HTML::script('js/distrigases.js') }}
 
 </head>
 <body>

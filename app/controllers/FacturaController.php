@@ -2,6 +2,19 @@
 
 class FacturaController extends BaseController
 {
+    public function getIndex()
+    {
+        return Redirect::to('facturas/listado');
+    }
+
+    public function getListado()
+    {
+        $facturas = Factura::orderBy('id', 'desc')->paginate(2);
+
+        return View::make('facturas.listado')
+            ->with(compact('facturas'));
+    }
+
     public function postNueva()
     {
         try
@@ -80,5 +93,7 @@ class FacturaController extends BaseController
 
             return false;
         }
-    }
-}
+
+    } #guardarItems
+
+} #FacturaController
