@@ -4,15 +4,26 @@ class ClienteController extends BaseController {
 
     public function getIndex()
     {
-        return Redirect::to('/');
+        return Redirect::to('clientes/listado');
 
     } #getIndex
 
-    public function getListado()
+    public function getListado($idCliente=null)
     {
+        $input = Input::all();
+
+        if (is_numeric($idCliente))
+        {
+            $cliente = Cliente::find($idCliente);
+            Session::put('cliente', $cliente);
+            Session::flash('mensajeOk', 'Ha seleccionado a '. Session::get('cliente')->nombre);
+
+            return Redirect::to($input['url']);
+        }
+
         $clientes = Cliente::OrderBy('nombre', 'asc')->paginate(10);
 
-        return View::make('clientes.listado')->with(compact('clientes'));
+        return View::make('clientes.listado')->with(compact('clientes', 'input'));
 
     } #getListado
 
@@ -161,5 +172,24 @@ public function postEditar()
         }
 
     } #postNuevo
+
+
+    public function getSeleccionar($url='clientes/listado', $idCliente=null)
+    {
+        if (is_numeric($idCliente))
+        {
+            $cliente = Cliente::find($idCliente);
+            Session::put('cliente', $cliente);
+
+            Session::flash('mensajeOk', 'Has seleccionado a '. Session::get('cliente')->nombre);
+
+            return Redirect::to($url);
+
+        } else {
+
+            return Redirect::to($url);
+        }
+
+    } #getSeleccionar
 
 } #ClientController

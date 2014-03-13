@@ -60,10 +60,12 @@
                             Editar
                         </a>
 
-                        <a href="{{ url('carrito/cliente/'. $cliente->id) }}" class="btn btn-xs btn-info">
-                            <span class="glyphicon glyphicon-check"></span>
-                            Al carrito
-                        </a>
+                        @if(isset($input['url']))
+                            <a href="{{ url('clientes/listado/'. $cliente->id .'?url='. $input['url']) }}" class="btn btn-xs btn-info">
+                                <span class="glyphicon glyphicon-check"></span>
+                                Seleccionar
+                            </a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

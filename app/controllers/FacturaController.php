@@ -115,7 +115,7 @@ class FacturaController extends BaseController
 
             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar '. $idFactura);
 
-            return Redirect::to('facturas');
+            return Redirect::to('facturas/listado');
         }
 
     } #getfiltroPorId
@@ -139,7 +139,7 @@ class FacturaController extends BaseController
 
              Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
 
-            return Redirect::to('facturas');
+            return Redirect::to('facturas/listado');
         }
 
     } #getFiltroPorFechasDeCreacion
@@ -163,9 +163,41 @@ class FacturaController extends BaseController
 
              Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas con fecha de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
 
-            return Redirect::to('facturas');
+            return Redirect::to('facturas/listado');
         }
 
     } #getFiltroPorFechasDeVencimiento
+
+    public function getFiltroPorFechasDeCreacionConCliente()
+    {
+        try
+        {
+            if(!Session::has('cliente'))
+            {
+                Session::flash('mensajeError', 'No fue posible realizar la busqueda por cliente y rango de fechas de creación porque no especificaste el cliente.');
+
+                return Redirect::to('facturas/listado');
+            }
+
+            $input = Input::all();
+
+            $facturas = Factura::where('cliente_id', '=', Session::get('cliente')->id)
+                ->where('created_at', '>=', $input['fecha1'])
+                ->where('created_at', '<=', $input['fecha2'])
+                ->orderBy('id', 'desc')->paginate(2);
+
+            Session::flash('mensajeOk', 'Se ha realizado la busqueda de facturas del cliente '. Session::get('cliente')->nombre .' creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return View::make('facturas.listado')
+                ->with(compact('facturas', 'input'));
+
+        } catch (Exception $e) {
+
+             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas del cliente '. Session::get('cliente')->nombre .' creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return Redirect::to('facturas/listado');
+        }
+
+    } #getFiltroPorClienteYFechasDeCreacion
 
 } #FacturaController

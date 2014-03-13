@@ -49,7 +49,7 @@
             <span class="input-group-addon">Cliente: </span>
             {{ Form::text('nombre', (Session::has('cliente')) ? Session::get('cliente')->nombre : '', array('class' => 'form-control', 'placeholder' => 'Nombre completo o razón social', 'required', 'maxlength' => '255', 'disabled')) }}
             <span class="input-group-addon">
-              <a href="{{ url('clientes/listado') }}">
+              <a href="{{ url('clientes/listado?url=carrito') }}">
                 <span class="glyphicon glyphicon-search"></span>
                 Examinar
               </a>
@@ -92,7 +92,7 @@
             <span class="input-group-addon">Cliente: </span>
             {{ Form::text('nombre', (Session::has('cliente')) ? Session::get('cliente')->nombre : '', array('class' => 'form-control', 'placeholder' => 'Nombre completo o razón social', 'required', 'maxlength' => '255', 'disabled')) }}
             <span class="input-group-addon">
-              <a href="{{ url('clientes/listado') }}">
+              <a href="{{ url('clientes/listado?url=carrito') }}">
                 <span class="glyphicon glyphicon-search"></span>
                 Examinar
               </a>

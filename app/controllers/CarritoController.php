@@ -60,20 +60,4 @@ class CarritoController extends BaseController {
 
     } #getQuitarItem
 
-    public function getCliente($idCliente)
-    {
-        if (is_numeric($idCliente))
-        {
-            $cliente = Cliente::find($idCliente);
-            Session::put('cliente', $cliente);
-
-            return Redirect::to('carrito');
-
-        } else {
-
-            return Redirect::to('clientes/listado');
-        }
-
-    } #getCliente
-
 } #CarritoController
