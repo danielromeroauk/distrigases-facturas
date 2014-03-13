@@ -120,4 +120,28 @@ class FacturaController extends BaseController
 
     } #getfiltroPorId
 
+    public function getFiltroPorFechasDeCreacion()
+    {
+        try
+        {
+            $input = Input::all();
+
+            $facturas = Factura::where('created_at', '>=', $input['fecha1'])
+                ->where('created_at', '<=', $input['fecha2'])
+                ->orderBy('id', 'desc')->paginate(2);
+
+            Session::flash('mensajeOk', 'Se ha realizado la busqueda de facturas creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return View::make('facturas.listado')
+                ->with(compact('facturas', 'input'));
+
+        } catch (Exception $e) {
+
+             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return Redirect::to('facturas');
+        }
+
+    } #getFiltroPorFechasDeCreacion
+
 } #FacturaController

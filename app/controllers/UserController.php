@@ -19,7 +19,7 @@ class UserController extends BaseController {
 
         if (Auth::attempt($credenciales)) {
 
-            return Redirect::to('/');
+            return Redirect::to('articulos/listado');
 
         } else {
 

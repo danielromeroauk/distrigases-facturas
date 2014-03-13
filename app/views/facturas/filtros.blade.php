@@ -10,26 +10,30 @@
     </div>{{-- ./panel-heading --}}
     <div id="filtro0" class="panel-collapse collapse in">
       <div class="panel-body">
-          {{ Form::open(array('url' => 'facturas/filtro-por-id', 'method' => 'get')) }}
+        {{ Form::open(array('url' => 'facturas/filtro-por-id', 'method' => 'get')) }}
 
           <div class="col-xs-4">
             <div class="input-group">
+
               <span class="input-group-addon">Id de la factura: </span>
               {{ Form::input('number', 'idFactura', '1', array('class' => 'numero form-control', 'min' => '1', 'step' => '1', 'title' => 'Id', 'required')) }}
-            </div>
-          </div>
 
-          <button type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span>
-            Filtrar
-          </button>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-search"></span>
+                  Filtrar
+                </button>
+              </span>
 
-          {{ Form::close() }}
+            </div>{{-- /input-group --}}
+          </div>{{-- /.col-xs-4 --}}
+
+        {{ Form::close() }}
       </div>{{-- /.panel-body --}}
     </div>{{-- /#filtro0 --}}
   </div>{{-- /.panel --}}
 
-  <div class="panel panel-info">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#acordion" href="#filtro1">
@@ -39,7 +43,23 @@
     </div>{{-- ./panel-heading --}}
     <div id="filtro1" class="panel-collapse collapse">
       <div class="panel-body">
-        Formulario del filtro1
+        {{ Form::open(array('url' => 'facturas/filtro-por-fechas-de-creacion', 'method' => 'get')) }}
+
+        <div class="input-group">
+
+            <span class="input-group-addon">Fecha inicio:</span>
+            <input type="date" name="fecha1" class="form-control", title="Fecha inicio" required />
+
+            <span class="input-group-addon">Fecha fin:</span>
+            <input type="date" name="fecha2" class="form-control", title="Fecha fin" required />
+
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Filtrar</button>
+            </span>
+
+        </div><!-- /input-group -->
+
+        {{ Form::close() }}
       </div>{{-- /.panel-body --}}
     </div>{{-- /#filtro1 --}}
   </div>{{-- /.panel --}}
