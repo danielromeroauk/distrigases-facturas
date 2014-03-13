@@ -144,4 +144,28 @@ class FacturaController extends BaseController
 
     } #getFiltroPorFechasDeCreacion
 
+    public function getFiltroPorFechasDeVencimiento()
+    {
+        try
+        {
+            $input = Input::all();
+
+            $facturas = Factura::where('vencimiento', '>=', $input['fecha1'])
+                ->where('vencimiento', '<=', $input['fecha2'])
+                ->orderBy('id', 'desc')->paginate(2);
+
+            Session::flash('mensajeOk', 'Se ha realizado la busqueda de facturas con fecha de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return View::make('facturas.listado')
+                ->with(compact('facturas', 'input'));
+
+        } catch (Exception $e) {
+
+             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas con fecha de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return Redirect::to('facturas');
+        }
+
+    } #getFiltroPorFechasDeVencimiento
+
 } #FacturaController

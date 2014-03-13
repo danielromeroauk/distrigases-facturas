@@ -1,6 +1,6 @@
 <div class="panel-group" id="acordion">
 
-  <div class="panel panel-success">
+  <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#acordion" href="#filtro0">
@@ -33,7 +33,7 @@
     </div>{{-- /#filtro0 --}}
   </div>{{-- /.panel --}}
 
-  <div class="panel panel-success">
+  <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#acordion" href="#filtro1">
@@ -74,7 +74,23 @@
     </div>{{-- ./panel-heading --}}
     <div id="filtro2" class="panel-collapse collapse">
       <div class="panel-body">
-        Formulario del filtro2
+        {{ Form::open(array('url' => 'facturas/filtro-por-fechas-de-vencimiento', 'method' => 'get')) }}
+
+        <div class="input-group">
+
+            <span class="input-group-addon">Fecha inicio:</span>
+            <input type="date" name="fecha1" class="form-control", title="Fecha inicio" required />
+
+            <span class="input-group-addon">Fecha fin:</span>
+            <input type="date" name="fecha2" class="form-control", title="Fecha fin" required />
+
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Filtrar</button>
+            </span>
+
+        </div><!-- /input-group -->
+
+        {{ Form::close() }}
       </div>{{-- /.panel-body --}}
     </div>{{-- /#filtro2 --}}
   </div>{{-- /.panel --}}
