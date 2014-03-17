@@ -198,6 +198,38 @@ class FacturaController extends BaseController
             return Redirect::to('facturas/listado');
         }
 
-    } #getFiltroPorClienteYFechasDeCreacion
+    } #getFiltroPorFechasDeCreacionConCliente
+
+    public function getFiltroPorFechasDeVencimientoConCliente()
+    {
+        try
+        {
+            if(!Session::has('cliente'))
+            {
+                Session::flash('mensajeError', 'No fue posible realizar la busqueda por cliente y rango de fechas de vencimiento porque no especificaste el cliente.');
+
+                return Redirect::to('facturas/listado');
+            }
+
+            $input = Input::all();
+
+            $facturas = Factura::where('cliente_id', '=', Session::get('cliente')->id)
+                ->where('vencimiento', '>=', $input['fecha1'])
+                ->where('vencimiento', '<=', $input['fecha2'])
+                ->orderBy('id', 'desc')->paginate(2);
+
+            Session::flash('mensajeOk', 'Se ha realizado la busqueda de facturas del cliente '. Session::get('cliente')->nombre .' con fecha de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return View::make('facturas.listado')
+                ->with(compact('facturas', 'input'));
+
+        } catch (Exception $e) {
+
+             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas del cliente '. Session::get('cliente')->nombre .' con fechas de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return Redirect::to('facturas/listado');
+        }
+
+    } #getFiltroPorFechasDeVencimientoConCliente
 
 } #FacturaController

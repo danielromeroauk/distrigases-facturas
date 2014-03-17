@@ -147,7 +147,34 @@
     </div>{{-- ./panel-heading --}}
     <div id="filtro4" class="panel-collapse collapse">
       <div class="panel-body">
-        Formulario del filtro4
+        {{ Form::open(array('url' => 'facturas/filtro-por-fechas-de-vencimiento-con-cliente', 'method' => 'get')) }}
+
+          <div class="input-group">
+            <span class="input-group-addon">Cliente: </span>
+            {{ Form::text('nombre', (Session::has('cliente')) ? Session::get('cliente')->nombre : '', array('class' => 'form-control', 'placeholder' => 'Nombre completo o razón social', 'required', 'maxlength' => '255', 'disabled')) }}
+            <span class="input-group-addon">
+              <a href="{{ url('clientes/listado?url=facturas/listado') }}">
+                <span class="glyphicon glyphicon-search"></span>
+                Examinar
+              </a>
+            </span>
+          </div><!-- /input-group -->
+
+          <div class="input-group">
+
+            <span class="input-group-addon">Fecha inicio:</span>
+            <input type="date" name="fecha1" class="form-control", title="Fecha inicio" required />
+
+            <span class="input-group-addon">Fecha fin:</span>
+            <input type="date" name="fecha2" class="form-control", title="Fecha fin" required />
+
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Filtrar</button>
+            </span>
+
+          </div><!-- /input-group -->
+
+        {{ Form::close() }}
       </div>{{-- /.panel-body --}}
     </div>{{-- /#filtro4 --}}
   </div>{{-- /.panel --}}
