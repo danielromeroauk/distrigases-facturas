@@ -2,6 +2,19 @@
 
 class CotizacionController extends BaseController
 {
+    public function getIndex()
+    {
+        return Redirect::to('cotizaciones/listado');
+    }
+
+    public function getListado()
+    {
+        $cotizaciones = Cotizacion::orderBy('id', 'desc')->paginate(2);
+
+        return View::make('cotizaciones.listado')
+            ->with(compact('cotizaciones'));
+    }
+
     public function postNueva()
     {
         try
@@ -33,7 +46,7 @@ class CotizacionController extends BaseController
             Session::forget('cliente');
             Session::flash('mensajeOk', 'Has creado la cotizacion '. $cotizacion->id .' con éxito.');
 
-            return Redirect::to('/');
+            return Redirect::to('cotizaciones/filtro-por-id/'. $cotizacion->id);
 
         } catch (Exception $e) {
 
@@ -78,5 +91,108 @@ class CotizacionController extends BaseController
 
             return false;
         }
-    }
-}
+
+    } #guardarItems
+
+    public function getFiltroPorId($idCotizacion=0)
+    {
+        try
+        {
+            if($idCotizacion == 0)
+            {
+                $idCotizacion = Input::get('idCotizacion');
+            }
+
+            $cotizaciones = Cotizacion::where('id', '=', $idCotizacion)->orderBy('id', 'desc')->paginate(1);
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de la cotización '. $idCotizacion);
+
+            return View::make('cotizaciones.listado')
+                ->with(compact('cotizaciones'));
+
+        } catch (Exception $e) {
+
+            Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar '. $idCotizacion);
+
+            return Redirect::to('cotizaciones/listado');
+        }
+
+    } #getfiltroPorId
+
+    public function getFiltroPorFechasDeCreacion()
+    {
+        try
+        {
+            $input = Input::all();
+
+            $cotizaciones = Cotizacion::where('created_at', '>=', $input['fecha1'])
+                ->where('created_at', '<=', $input['fecha2'])
+                ->orderBy('id', 'desc')->paginate(2);
+
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de cotizaciones creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return View::make('cotizaciones.listado')
+                ->with(compact('cotizaciones', 'input'));
+
+        } catch (Exception $e) {
+
+             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar cotizaciones creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return Redirect::to('cotizaciones/listado');
+        }
+
+    } #getFiltroPorFechasDeCreacion
+
+    public function getFiltroPorFechasDeCreacionConCliente()
+    {
+        try
+        {
+            if(!Session::has('cliente'))
+            {
+                Session::flash('mensajeError', 'No fue posible realizar la búsqueda por cliente y rango de fechas de creación porque no especificaste el cliente.');
+
+                return Redirect::to('cotizaciones/listado');
+            }
+
+            $input = Input::all();
+
+            $cotizaciones = Cotizacion::where('cliente_id', '=', Session::get('cliente')->id)
+                ->where('created_at', '>=', $input['fecha1'])
+                ->where('created_at', '<=', $input['fecha2'])
+                ->orderBy('id', 'desc')->paginate(2);
+
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de cotizaciones del cliente '. Session::get('cliente')->nombre .' creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return View::make('cotizaciones.listado')
+                ->with(compact('cotizaciones', 'input'));
+
+        } catch (Exception $e) {
+
+             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar cotizaciones del cliente '. Session::get('cliente')->nombre .' creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+
+            return Redirect::to('cotizaciones/listado');
+        }
+
+    } #getFiltroPorFechasDeCreacionConCliente
+
+    public function getFiltroPorNotas()
+    {
+        try
+        {
+            $input = Input::all();
+
+            $cotizaciones = Cotizacion::where('notas', 'like', '%'. $input['notas'] .'%')
+                ->orderBy('id', 'desc')->paginate(2);
+
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de cotizaciones que contienen <strong>'. $input['notas'] .'</strong> en las notas.');
+
+            return View::make('cotizaciones.listado')
+                ->with(compact('cotizaciones', 'input'));
+
+        } catch (Exception $e) {
+
+            Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar cotizaciones con <strong>'. $input['notas'] .'</strong> en las notas.');
+        }
+
+    } #getFiltroPorNotas
+
+} #CotizacionController
