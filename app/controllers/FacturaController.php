@@ -106,7 +106,7 @@ class FacturaController extends BaseController
             }
 
             $facturas = Factura::where('id', '=', $idFactura)->orderBy('id', 'desc')->paginate(1);
-            Session::flash('mensajeOk', 'Se ha realizado la busqueda de la factura '. $idFactura);
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de la factura '. $idFactura);
 
             return View::make('facturas.listado')
                 ->with(compact('facturas'));
@@ -130,7 +130,7 @@ class FacturaController extends BaseController
                 ->where('created_at', '<=', $input['fecha2'])
                 ->orderBy('id', 'desc')->paginate(2);
 
-            Session::flash('mensajeOk', 'Se ha realizado la busqueda de facturas creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de facturas creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
 
             return View::make('facturas.listado')
                 ->with(compact('facturas', 'input'));
@@ -154,7 +154,7 @@ class FacturaController extends BaseController
                 ->where('vencimiento', '<=', $input['fecha2'])
                 ->orderBy('id', 'desc')->paginate(2);
 
-            Session::flash('mensajeOk', 'Se ha realizado la busqueda de facturas con fecha de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de facturas con fecha de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
 
             return View::make('facturas.listado')
                 ->with(compact('facturas', 'input'));
@@ -174,7 +174,7 @@ class FacturaController extends BaseController
         {
             if(!Session::has('cliente'))
             {
-                Session::flash('mensajeError', 'No fue posible realizar la busqueda por cliente y rango de fechas de creación porque no especificaste el cliente.');
+                Session::flash('mensajeError', 'No fue posible realizar la búsqueda por cliente y rango de fechas de creación porque no especificaste el cliente.');
 
                 return Redirect::to('facturas/listado');
             }
@@ -186,7 +186,7 @@ class FacturaController extends BaseController
                 ->where('created_at', '<=', $input['fecha2'])
                 ->orderBy('id', 'desc')->paginate(2);
 
-            Session::flash('mensajeOk', 'Se ha realizado la busqueda de facturas del cliente '. Session::get('cliente')->nombre .' creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de facturas del cliente '. Session::get('cliente')->nombre .' creadas entre '. $input['fecha1'] .' y '. $input['fecha2']);
 
             return View::make('facturas.listado')
                 ->with(compact('facturas', 'input'));
@@ -206,7 +206,7 @@ class FacturaController extends BaseController
         {
             if(!Session::has('cliente'))
             {
-                Session::flash('mensajeError', 'No fue posible realizar la busqueda por cliente y rango de fechas de vencimiento porque no especificaste el cliente.');
+                Session::flash('mensajeError', 'No fue posible realizar la búsqueda por cliente y rango de fechas de vencimiento porque no especificaste el cliente.');
 
                 return Redirect::to('facturas/listado');
             }
@@ -218,18 +218,39 @@ class FacturaController extends BaseController
                 ->where('vencimiento', '<=', $input['fecha2'])
                 ->orderBy('id', 'desc')->paginate(2);
 
-            Session::flash('mensajeOk', 'Se ha realizado la busqueda de facturas del cliente '. Session::get('cliente')->nombre .' con fecha de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de facturas del cliente '. Session::get('cliente')->nombre .' con fecha de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
 
             return View::make('facturas.listado')
                 ->with(compact('facturas', 'input'));
 
         } catch (Exception $e) {
 
-             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas del cliente '. Session::get('cliente')->nombre .' con fechas de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
+            Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas del cliente '. Session::get('cliente')->nombre .' con fechas de vencimiento entre '. $input['fecha1'] .' y '. $input['fecha2']);
 
             return Redirect::to('facturas/listado');
         }
 
     } #getFiltroPorFechasDeVencimientoConCliente
+
+    public function getFiltroPorNotas()
+    {
+        try
+        {
+            $input = Input::all();
+
+            $facturas = Factura::where('notas', 'like', '%'. $input['notas'] .'%')
+                ->orderBy('id', 'desc')->paginate(2);
+
+            Session::flash('mensajeOk', 'Se ha realizado la búsqueda de facturas que contienen <strong>'. $input['notas'] .'</strong> en las notas.');
+
+            return View::make('facturas.listado')
+                ->with(compact('facturas', 'input'));
+
+        } catch (Exception $e) {
+
+            Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas con <strong>'. $input['notas'] .'</strong> en las notas.');
+        }
+
+    } #getFiltroPorNotas
 
 } #FacturaController

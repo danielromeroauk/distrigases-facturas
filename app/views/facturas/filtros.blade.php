@@ -179,4 +179,32 @@
     </div>{{-- /#filtro4 --}}
   </div>{{-- /.panel --}}
 
+<div class="panel panel-info">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#acordion" href="#filtro5">
+          Filtro por notas de factura
+        </a>
+      </h4>
+    </div>{{-- ./panel-heading --}}
+    <div id="filtro5" class="panel-collapse collapse">
+      <div class="panel-body">
+        {{ Form::open(array('url' => 'facturas/filtro-por-notas', 'method' => 'get')) }}
+
+          <div class="input-group">
+
+            <span class="input-group-addon">Notas: </span>
+            {{ Form::text('notas', '', array('class' => 'form-control', 'placeholder' => 'Datos adicionales', 'required', 'maxlength' => '255')) }}
+
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Filtrar</button>
+            </span>
+
+          </div><!-- /input-group -->
+
+        {{ Form::close() }}
+      </div>{{-- /.panel-body --}}
+    </div>{{-- /#filtro5 --}}
+  </div>{{-- /.panel --}}
+
 </div> {{-- /#acordion --}}
