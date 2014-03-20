@@ -23,20 +23,16 @@ class ArticuloController extends BaseController {
         $buscar = $input['buscar'];
         $articulos = array();
 
-        if($filtro == 'id')
-        {
-            $articulos = Articulo::where('id', '=', $buscar)->paginate(6);
+        if ($filtro == 'nombre') {
+
+            $articulos = Articulo::where('nombre', 'like', '%'. $buscar .'%')->paginate(6);
+            $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en el nombre.';
+            Session::flash('mensajeOk', $mensaje);
 
         } elseif ($filtro == 'notas') {
 
             $articulos = Articulo::where('notas', 'like', '%'. $buscar .'%')->paginate(6);
             $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en las notas.';
-            Session::flash('mensajeOk', $mensaje);
-
-        } elseif ($filtro == 'nombre') {
-
-            $articulos = Articulo::where('nombre', 'like', '%'. $buscar .'%')->paginate(6);
-            $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en el nombre.';
             Session::flash('mensajeOk', $mensaje);
         }
 

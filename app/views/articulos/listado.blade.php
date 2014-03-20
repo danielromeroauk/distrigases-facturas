@@ -14,11 +14,6 @@
       <div class="input-group">
 
         <span class="input-group-addon input-sm">
-          {{ Form::radio('filtro', 'id') }}
-          Id
-        </span>
-
-        <span class="input-group-addon input-sm">
           {{ Form::radio('filtro', 'notas') }}
           Código de barras
         </span>
@@ -50,33 +45,40 @@
 
   @foreach($articulos as $articulo)
     <div class="col-sm-6 col-md-4">
-    <h3>
+
+    <h2>
       {{ $articulo->nombre }}
       <a href="{{ url('articulos/editar/'. $articulo->id) }}" class="btn btn-xs btn-warning">
         <span class="glyphicon glyphicon-edit"></span>
         Editar
       </a>
-    </h3>
+    </h2>
+
     <ul class="list-group">
-      <li class="list-group-item">
-        Id: {{ $articulo->id }}
-      </li>
+
       @if($articulo->notas != '')
         <li class="list-group-item">
           {{ $articulo->notas }}
         </li>
       @endif
+
       <li class="list-group-item">
-        Precio: {{ $articulo->precio }}
+        <h3>
+          COP$
+          @if(is_numeric($articulo->iva))
+            {{ number_format($articulo->precio * (1 + ($articulo->iva / 100)), 2, ',', '.') }}
+            <small>
+              IVA del {{ $articulo->iva }}% incluido
+            </small>
+          @else
+            {{ $articulo->precio }}
+            <small>
+              Excento de IVA
+            </small>
+          @endif
+        </h3>
       </li>
-      <li class="list-group-item">
-        IVA:
-        @if(is_numeric($articulo->iva))
-          {{ $articulo->iva }}%
-        @else
-          Excento
-        @endif
-      </li>
+
       <li class="list-group-item">
 
         {{ Form::open(array('url' => 'carrito/agregar', 'role' => 'form')) }}
@@ -92,8 +94,10 @@
 
         {{ Form::close() }}
       </li>
+
     </ul>
-    </div>
+
+    </div>{{-- /.col-sm-6.col-md-4 --}}
   @endforeach
 
   @if(isset($input))

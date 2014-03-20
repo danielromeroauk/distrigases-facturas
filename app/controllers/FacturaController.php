@@ -249,8 +249,30 @@ class FacturaController extends BaseController
         } catch (Exception $e) {
 
             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar facturas con <strong>'. $input['notas'] .'</strong> en las notas.');
+
+            return Redirect::to('facturas/listado');
         }
 
     } #getFiltroPorNotas
+
+    public function getPdf($idFactura)
+    {
+        try
+        {
+            $factura = Factura::find($idFactura);
+
+            $html = View::make('facturas.pdf')->with(compact('factura'));
+
+            return PDF::load($html, 'Letter', 'portrait')->show();
+            #return View::make('facturas.pdf')->with(compact('factura'));
+
+        } catch (Exception $e) {
+
+            Session::flash('mensajeError', 'No fue posible generar el PDF de la factura '. $idFactura);
+
+            return Redirect::to('facturas/listado');
+        }
+
+    } #getPdf
 
 } #FacturaController

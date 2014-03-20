@@ -1,0 +1,96 @@
+body {
+  font-size: 12px;
+  font-family: Arial;
+  margin: 0;
+  padding: 0;
+}
+body>div {
+  border: solid 1px #f00;
+  position: absolute;
+}
+body #items {
+  left: 10px;
+  top: 320px;
+  position: relative;
+}
+body #items td {
+  border: solid 1px #f00;
+  text-align: right;
+}
+body #items .cantidad {
+  width: 50px;
+}
+body #items .descripcion {
+  text-align: justify;
+  width: 360px;
+}
+body #items .valor-unitario {
+  width: 105px;
+}
+body #items .valor-total {
+  width: 153px;
+}
+#fecha {
+  left: 70px;
+  top: 200px;
+  width: 150px;
+}
+#forma-de-pago {
+  left: 350px;
+  top: 200px;
+  width: 80px;
+}
+#vencimiento {
+  left: 550px;
+  top: 200px;
+  width: 150px;
+}
+#nombre {
+  left: 80px;
+  top: 230px;
+  width: 400px;
+}
+#nit {
+  left: 550px;
+  top: 230px;
+  width: 150px;
+}
+#direccion {
+  left: 80px;
+  top: 260px;
+  width: 230px;
+}
+#telefono {
+  left: 350px;
+  top: 260px;
+  width: 80px;
+}
+#pedido {
+  left: 550px;
+  top: 260px;
+  width: 150px;
+}
+#excento {
+  left: 555px;
+  text-align: right;
+  top: 900px;
+  width: 145px;
+}
+#subtotal {
+  left: 555px;
+  text-align: right;
+  top: 920px;
+  width: 145px;
+}
+#iva {
+  left: 555px;
+  text-align: right;
+  top: 940px;
+  width: 145px;
+}
+#total {
+  left: 555px;
+  text-align: right;
+  top: 960px;
+  width: 145px;
+}

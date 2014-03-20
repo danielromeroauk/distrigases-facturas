@@ -1,10 +1,11 @@
 {
 	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"description": "Sistema de facturación.",
+	"keywords": ["framework", "laravel", "facturación"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*"
+		"laravel/framework": "4.1.*",
+		"thujohn/pdf": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

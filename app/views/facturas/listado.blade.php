@@ -58,25 +58,25 @@
               <tr>
                 <th colspan="4" class="derecha">Excento:</td>
                 <td class="derecha">
-                  {{ $factura->calcularTotal('excento') }}
+                  {{ number_format($factura->calcularTotal('excento'), 2, ',', '.') }}
                 </td>
               </tr>
               <tr>
                 <th colspan="4" class="derecha">Gravado:</td>
                 <td class="derecha">
-                  {{ $factura->calcularTotal('gravado') }}
+                  {{ number_format($factura->calcularTotal('gravado'), 2, ',', '.') }}
                 </td>
               </tr>
               <tr>
                 <th colspan="4" class="derecha">IVA:</td>
                 <td class="derecha">
-                  {{ $factura->calcularTotal('iva') }}
+                  {{ number_format($factura->calcularTotal('iva'), 2, ',', '.') }}
                 </td>
               </tr>
               <tr>
                 <th colspan="4" class="derecha">Total:</td>
                 <td class="derecha">
-                  {{ $factura->calcularTotal('total') }}
+                  {{ number_format($factura->calcularTotal('total'), 2, ',', '.') }}
                 </td>
               </tr>
             </tfoot>
@@ -90,16 +90,16 @@
                     {{ $item->articulo->nombre }}
                   </td>
                   <td class="derecha">
-                    {{ $item->precio }}
+                    {{ number_format($item->precio, 2, ',', '.') }}
                   </td>
                   <td class="derecha">
                     {{ is_numeric($item->iva) ? $item->iva . '%' : 'Excento' }}
                   </td>
                   <td class="derecha">
                     @if(is_numeric($item->iva))
-                      {{ ($item->precio * $item->cantidad) * (1 + ($item->iva / 100)) }}
+                      {{ number_format( ($item->precio * $item->cantidad) * (1 + ($item->iva / 100)), 2, ',', '.' )}}
                     @else
-                      {{ $item->precio * $item->cantidad }}
+                      {{ number_format( $item->precio * $item->cantidad, 2, ',', '.' ) }}
                     @endif
                   </td>
                 </tr>
@@ -109,13 +109,9 @@
         </div>{{-- /.panel-body --}}
 
         <div class="panel-footer">
-          <a href="{{ url('facturas/membrete/true/'. $factura->id) }}" class="btn btn-primary btn-sm">
-            <span class="glyphicon glyphicon-send"></span>
-            Con membrete
-          </a>
-          <a href="{{ url('facturas/membrete/false/'. $factura->id) }}" class="btn btn-success btn-sm">
+          <a href="{{ url('facturas/pdf/'. $factura->id) }}" class="btn btn-success btn-sm">
             <span class="glyphicon glyphicon-print"></span>
-            Sin membrete
+            PDF
           </a>
           <a href="{{ url('carrito/desde-factura/'. $factura->id) }}" class="btn btn-info btn-sm">
             <span class="glyphicon glyphicon-shopping-cart"></span>

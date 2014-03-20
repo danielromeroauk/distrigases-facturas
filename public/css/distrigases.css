@@ -1,7 +1,9 @@
 body {
   font: "Merriweather Sans", sans-serif;
 }
-h1 {
+h1,
+h2,
+h3 {
   font-family: "Oswald", sans-serif;
 }
 #acordion {

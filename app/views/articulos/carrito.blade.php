@@ -6,28 +6,40 @@
   <h1>Contenido del carrito</h1>
   <table class="table table-hover table-striped">
     <thead>
-      <th>Id</th>
-      <th>Artículo</th>
-      <th>Cantidad</th>
       <th>Acción</th>
+      <th class="derecha">Cantidad</th>
+      <th>Artículo</th>
+      <th class="derecha">Precio</th>
+      <th class="derecha">IVA</th>
+      <th class="derecha">Total</th>
     </thead>
     <tbody>
       @foreach(Session::get('carrito') as $item)
           <tr>
               <td>
-                {{ $item['articulo']->id }}
-              </td>
-              <td>
-                {{ $item['articulo']->nombre }}
-              </td>
-              <td>
-                {{ $item['cantidad'] }}
-              </td>
-              <td>
                 <a href="{{ url('carrito/quitar-item/'. $item['articulo']->id) }}" class="btn btn-warning btn-xs">
                   <span class="glyphicon glyphicon-remove"></span>
                   Quitar
                 </a>
+              </td>
+              <td class="derecha">
+                {{ number_format($item['cantidad'], 2, ',', '.') }}
+              </td>
+              <td>
+                {{ $item['articulo']->nombre }}
+              </td>
+              <td class="derecha">
+                {{ $item['articulo']->precio }}
+              </td>
+              <td class="derecha">
+                {{ is_numeric($item['articulo']->iva) ? $item['articulo']->iva . '%' : 'Excento' }}
+              </td>
+              <td class="derecha">
+                @if(is_numeric($item['articulo']->iva))
+                  {{ number_format( ($item['articulo']->precio * $item['cantidad']) * (1 + ($item['articulo']->iva / 100)), 2, ',', '.' )}}
+                @else
+                  {{ number_format( $item['articulo']->precio * $item['cantidad'], 2, ',', '.' ) }}
+                @endif
               </td>
           </tr>
       @endforeach
@@ -35,13 +47,35 @@
   </table>
 
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#factura" data-toggle="tab">Procesar como factura</a></li>
+      <li class="active"><a href="#totales" data-toggle="tab">Totales</a></li>
+      <li><a href="#factura" data-toggle="tab">Procesar como factura</a></li>
       <li><a href="#cotizacion" data-toggle="tab">Procesar como cotización</a></li>
     </ul>
 
     <div class="tab-content">
 
-      <div class="tab-pane fade in active" id="factura">
+      <div class="tab-pane fade in active" id="totales">
+        <ul class="list-group">
+          <li class="list-group-item derecha">
+            Excento:
+            {{ number_format( CarritoController::calcularTotal('excento'), 2, ',', '.' ) }}
+          </li>
+          <li class="list-group-item derecha">
+            Gravado:
+            {{ number_format( CarritoController::calcularTotal('gravado'), 2, ',', '.' ) }}
+          </li>
+          <li class="list-group-item derecha">
+            IVA: {{ number_format( CarritoController::calcularTotal('iva'), 2, ',', '.' ) }}
+          </li>
+          <li class="list-group-item derecha">
+            <strong>
+              Total: COP$ {{ number_format( CarritoController::calcularTotal('total'), 2, ',', '.' ) }}
+            </strong>
+          </li>
+        </ul>
+      </div> {{-- /#totales --}}
+
+      <div class="tab-pane fade" id="factura">
 
         {{ Form::open(array('url' => 'facturas/nueva')) }}
 

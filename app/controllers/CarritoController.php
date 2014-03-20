@@ -60,4 +60,30 @@ class CarritoController extends BaseController {
 
     } #getQuitarItem
 
+    public static function calcularTotal($dato)
+    {
+        if (!Session::has('carrito')) {
+            return View::make('articulos');
+        }
+
+        $carrito = Session::get('carrito');
+
+        $totales = array('excento' => 0, 'gravado' => 0, 'iva' => 0, 'total' => 0);
+
+        foreach ($carrito as $item) {
+            if(is_numeric($item['articulo']->iva))
+            {
+                $totales['gravado'] += $item['cantidad'] * $item['articulo']->precio;
+                $totales['iva'] += $item['cantidad'] * ($item['articulo']->precio * ($item['articulo']->iva / 100));
+            } else {
+                $totales['excento'] += $item['cantidad'] * $item['articulo']->precio;
+            }
+        }
+
+        $totales['total'] = $totales['excento'] + $totales['gravado'] + $totales['iva'];
+
+        return $totales[$dato];
+
+    } #calcularTotal
+
 } #CarritoController

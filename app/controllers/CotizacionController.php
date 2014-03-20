@@ -191,6 +191,8 @@ class CotizacionController extends BaseController
         } catch (Exception $e) {
 
             Session::flash('mensajeError', 'Ha ocurrido un error al intentar mostrar cotizaciones con <strong>'. $input['notas'] .'</strong> en las notas.');
+
+            return Redirect::to('cotizaciones/listado');
         }
 
     } #getFiltroPorNotas

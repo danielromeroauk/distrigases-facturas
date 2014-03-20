@@ -43,6 +43,22 @@ class Factura extends Eloquent
 
         return $totales[$dato];
 
-    } #calcularTotales
+    } #calcularTotal
+
+    public function formaDePago()
+    {
+        $creacion = date_format(new DateTime($this->created_at), 'Y-m-d');
+        $vencimiento = date_format(new DateTime($this->vencimiento), 'Y-m-d');
+
+        if($creacion == $vencimiento)
+        {
+            return 'CONTADO';
+
+        } else {
+
+            return 'CRÉDITO';
+        }
+
+    } #formaDePago
 
 } #Factura
