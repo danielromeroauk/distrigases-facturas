@@ -84,7 +84,7 @@
               @foreach($factura->items as $item)
                 <tr>
                   <td class="derecha">
-                    {{ $item->cantidad }}
+                    {{ number_format( $item->cantidad, 2, ',', '.' ) }}
                   </td>
                   <td>
                     {{ $item->articulo->nombre }}
@@ -113,7 +113,7 @@
             <span class="glyphicon glyphicon-print"></span>
             PDF
           </a>
-          <a href="{{ url('carrito/desde-factura/'. $factura->id) }}" class="btn btn-info btn-sm">
+          <a href="{{ url('facturas/al-carrito/'. $factura->id) }}" class="btn btn-info btn-sm">
             <span class="glyphicon glyphicon-shopping-cart"></span>
             Artículos al carrito
           </a>

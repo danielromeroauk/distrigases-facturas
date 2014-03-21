@@ -53,27 +53,27 @@
             </thead>
             <tfoot>
               <tr>
-                <th colspan="4" class="derecha">Excento:</td>
+                <th colspan="4" class="derecha">Excento:</th>
                 <td class="derecha">
-                  {{ $cotizacion->calcularTotal('excento') }}
+                  {{ number_format( $cotizacion->calcularTotal('excento'), 2, ',', '.' ) }}
                 </td>
               </tr>
               <tr>
-                <th colspan="4" class="derecha">Gravado:</td>
+                <th colspan="4" class="derecha">Gravado:</th>
                 <td class="derecha">
-                  {{ $cotizacion->calcularTotal('gravado') }}
+                  {{ number_format( $cotizacion->calcularTotal('gravado'), 2, ',', '.' ) }}
                 </td>
               </tr>
               <tr>
-                <th colspan="4" class="derecha">IVA:</td>
+                <th colspan="4" class="derecha">IVA:</th>
                 <td class="derecha">
-                  {{ $cotizacion->calcularTotal('iva') }}
+                  {{ number_format( $cotizacion->calcularTotal('iva'), 2, ',', '.' ) }}
                 </td>
               </tr>
               <tr>
-                <th colspan="4" class="derecha">Total:</td>
+                <th colspan="4" class="derecha">Total:</th>
                 <td class="derecha">
-                  {{ $cotizacion->calcularTotal('total') }}
+                  {{ number_format( $cotizacion->calcularTotal('total'), 2, ',', '.' ) }}
                 </td>
               </tr>
             </tfoot>
@@ -81,22 +81,22 @@
               @foreach($cotizacion->items as $item)
                 <tr>
                   <td class="derecha">
-                    {{ $item->cantidad }}
+                    {{ number_format( $item->cantidad, 2, ',', '.' ) }}
                   </td>
                   <td>
                     {{ $item->articulo->nombre }}
                   </td>
                   <td class="derecha">
-                    {{ $item->precio }}
+                    {{ number_format( $item->precio, 2, ',', '.' ) }}
                   </td>
                   <td class="derecha">
                     {{ is_numeric($item->iva) ? $item->iva . '%' : 'Excento' }}
                   </td>
                   <td class="derecha">
                     @if(is_numeric($item->iva))
-                      {{ ($item->precio * $item->cantidad) * (1 + ($item->iva / 100)) }}
+                      {{ number_format( ($item->precio * $item->cantidad) * (1 + ($item->iva / 100)), 2, ',', '.' )}}
                     @else
-                      {{ $item->precio * $item->cantidad }}
+                      {{ number_format( $item->precio * $item->cantidad, 2, ',', '.' ) }}
                     @endif
                   </td>
                 </tr>
@@ -106,15 +106,15 @@
         </div>{{-- /.panel-body --}}
 
         <div class="panel-footer">
-          <a href="{{ url('cotizaciones/membrete/true/'. $cotizacion->id) }}" class="btn btn-primary btn-sm">
+          <a href="{{ url('cotizaciones/pdf/'. $cotizacion->id .'/1') }}" class="btn btn-primary btn-sm">
             <span class="glyphicon glyphicon-send"></span>
             Con membrete
           </a>
-          <a href="{{ url('cotizaciones/membrete/false/'. $cotizacion->id) }}" class="btn btn-success btn-sm">
+          <a href="{{ url('cotizaciones/pdf/'. $cotizacion->id) }}" class="btn btn-success btn-sm">
             <span class="glyphicon glyphicon-print"></span>
             Sin membrete
           </a>
-          <a href="{{ url('carrito/desde-cotizacion/'. $cotizacion->id) }}" class="btn btn-info btn-sm">
+          <a href="{{ url('cotizaciones/al-carrito/'. $cotizacion->id) }}" class="btn btn-info btn-sm">
             <span class="glyphicon glyphicon-shopping-cart"></span>
             Artículos al carrito
           </a>

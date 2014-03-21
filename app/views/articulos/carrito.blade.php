@@ -29,7 +29,7 @@
                 {{ $item['articulo']->nombre }}
               </td>
               <td class="derecha">
-                {{ $item['articulo']->precio }}
+                {{ number_format( $item['articulo']->precio, 2, ',', '.' ) }}
               </td>
               <td class="derecha">
                 {{ is_numeric($item['articulo']->iva) ? $item['articulo']->iva . '%' : 'Excento' }}

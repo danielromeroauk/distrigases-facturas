@@ -45,4 +45,22 @@ class Cotizacion extends Eloquent
 
     } #calcularTotales
 
+    public function alCarrito()
+    {
+        $carrito = array();
+
+        if (Session::has('carrito')) {
+            $carrito = Session::get('carrito');
+        }
+
+        foreach($this->items as $item)
+        {
+            $carrito[$item->articulo->id] = array('articulo' => $item->articulo, 'cantidad' => $item->cantidad);
+        }
+
+        Session::put('carrito', $carrito);
+        Session::put('cliente', $this->cliente);
+
+    } #alCarrito
+
 } #Cotizacion

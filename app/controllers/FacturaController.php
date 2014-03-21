@@ -275,4 +275,24 @@ class FacturaController extends BaseController
 
     } #getPdf
 
+    public function getAlCarrito($idFactura)
+    {
+        try
+        {
+            $factura = Factura::find($idFactura);
+            $factura->alCarrito();
+
+            Session::flash('mensajeOk', 'Se han agregado al carrito los items de la factura '. $idFactura);
+
+            return Redirect::to('carrito');
+
+        } catch (Exception $e) {
+
+            Session::flash('mensajeError', 'No fue posible cargar el carrito con los items de la factura '. $idFactura);
+
+            return Redirect::to('facturas/listado');
+        }
+
+    } #getAlCarrito
+
 } #FacturaController

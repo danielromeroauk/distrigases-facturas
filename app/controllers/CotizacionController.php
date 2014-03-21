@@ -197,4 +197,52 @@ class CotizacionController extends BaseController
 
     } #getFiltroPorNotas
 
+    public function getAlCarrito($idCotizacion)
+    {
+        try
+        {
+            $cotizacion = Cotizacion::find($idCotizacion);
+            $cotizacion->alCarrito();
+
+            Session::flash('mensajeOk', 'Se han agregado al carrito los items de la cotización '. $idCotizacion);
+
+            return Redirect::to('carrito');
+
+        } catch (Exception $e) {
+
+            Session::flash('mensajeError', 'No fue posible cargar el carrito con los items de la cotización '. $idCotizacion);
+
+            return Redirect::to('cotizaciones/listado');
+        }
+
+    } #getAlCarrito
+
+    public function getPdf($idCotizacion, $membrete=0)
+    {
+        try
+        {
+            $cotizacion = Cotizacion::find($idCotizacion);
+
+            if($membrete == 1)
+            {
+                #$html = View::make('cotizaciones.membrete')->with(compact('cotizacion'));
+                $html = 'Está entrando en membrete == true';
+
+            } else {
+
+                $html = View::make('cotizaciones.pdf')->with(compact('cotizacion'));
+            }
+
+            return PDF::load($html, 'Letter', 'portrait')->show();
+            #return View::make('cotizaciones.pdf')->with(compact('cotizacion'));
+
+        } catch (Exception $e) {
+
+            Session::flash('mensajeError', 'No fue posible generar el PDF de la cotizacion '. $idCotizacion);
+
+            return Redirect::to('cotizaciones/listado');
+        }
+
+    } #getConMembrete
+
 } #CotizacionController

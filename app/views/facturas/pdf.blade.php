@@ -14,7 +14,7 @@
   </div>
 
   <div id="forma-de-pago">
-    {{ $factura->formaDePago() }}
+    {{ utf8_decode($factura->formaDePago()) }}
   </div>
 
   <div id="vencimiento">
@@ -24,7 +24,7 @@
   </div>
 
   <div id="nombre">
-    {{ $factura->cliente->nombre }}
+    {{ utf8_decode($factura->cliente->nombre) }}
   </div>
 
   <div id="nit">
@@ -32,7 +32,7 @@
   </div>
 
   <div id="direccion">
-    {{ $factura->cliente->direccion }}
+    {{ utf8_decode($factura->cliente->direccion) }}
   </div>
 
   <div id="telefono">
@@ -47,10 +47,10 @@
     @foreach($factura->items as $item)
       <tr>
         <td class="cantidad">
-          {{ $item->cantidad }}
+          {{ number_format( $item->cantidad, 2, ',', '.' ) }}
         </td>
         <td class="descripcion">
-          {{ $item->articulo->nombre }}
+          {{ utf8_decode($item->articulo->nombre) }}
         </td>
         <td class="valor-unitario">
           {{ number_format($item->precio, 2, ',', '.') }}
