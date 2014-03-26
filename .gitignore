@@ -1,6 +1,7 @@
-/bootstrap/compiled.php
-/docs
-/vendor
+bootstrap/compiled.php
+docs/
+public/img/
+vendor/
 composer.phar
 composer.lock
 .env.local.php

@@ -1,5 +1,12 @@
 @extends('layouts.master')
 
+@section('head')
+  @parent
+
+  {{ HTML::script('js/cambiar-imagen.js') }}
+
+@stop
+
 @section('contenido')
 
 <div class="container">
@@ -46,15 +53,30 @@
   @foreach($articulos as $articulo)
     <div class="col-sm-6 col-md-4">
 
-    <h2>
-      {{ $articulo->nombre }}
-      <a href="{{ url('articulos/editar/'. $articulo->id) }}" class="btn btn-xs btn-warning">
-        <span class="glyphicon glyphicon-edit"></span>
-        Editar
-      </a>
-    </h2>
-
     <ul class="list-group">
+
+      <div class="imagen">
+        <div class="preview thumbnail">
+          <span class="file-info" id="div-{{$articulo->id}}" data-articulo="{{$articulo->id}}"></span>
+          <a href="#" class="btn btn-default file-select" data-articulo="{{$articulo->id}}">Cambiar imagen</a>
+          @if($articulo->imagen)
+            <img src="{{ url('img/articulos/'. $articulo->imagen->ruta) }}" id="img-{{$articulo->id}}" />
+          @else
+            <img src="http://placehold.it/640x360" id="img-{{$articulo->id}}" />
+          @endif
+        </div>
+
+        {{ Form::open(array('url' => 'articulos/cambiar-imagen/'.$articulo->id, 'class' => 'file-submit', 'files' => true)) }}
+            <input id="file-{{$articulo->id}}" name="imagen" type="file" data-articulo="{{$articulo->id}}" />
+        {{ Form::close() }}
+      </div>{{-- /.imagen --}}
+
+      <li class="list-group-item">
+        <h2>
+          {{ $articulo->nombre }}
+
+        </h2>
+      </li>
 
       @if($articulo->notas != '')
         <li class="list-group-item">
@@ -91,6 +113,11 @@
             <span class="glyphicon glyphicon-shopping-cart"></span>
             Añadir
           </button>
+
+          <a href="{{ url('articulos/editar/'. $articulo->id) }}" class="btn btn-sm btn-default">
+            <span class="glyphicon glyphicon-edit"></span>
+            Editar
+          </a>
 
         {{ Form::close() }}
       </li>

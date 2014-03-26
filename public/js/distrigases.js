@@ -1,13 +1,11 @@
 jQuery(function($){
 
-    $(document).on('ready', function(){
+  $(document).on('ready', function(){
 
-        $("#btnFiltrar").on('click', function(){
-
-            $("#acordion").toggle("slow");
-
-        });
-
+    $("#btnFiltrar").on('click', function(){
+      $("#acordion").toggle("slow");
     });
 
-});
+  }); //on ready
+
+}); //jQuery

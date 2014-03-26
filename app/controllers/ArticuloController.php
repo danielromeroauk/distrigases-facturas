@@ -23,17 +23,25 @@ class ArticuloController extends BaseController {
         $buscar = $input['buscar'];
         $articulos = array();
 
-        if ($filtro == 'nombre') {
-
-            $articulos = Articulo::where('nombre', 'like', '%'. $buscar .'%')->paginate(6);
+        if ($filtro == 'nombre')
+        {
+            $articulos = Articulo::where('nombre', 'like', '%'. $buscar .'%')
+                ->orderBy('nombre', 'asc')
+                ->paginate(6);
             $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en el nombre.';
             Session::flash('mensajeOk', $mensaje);
 
-        } elseif ($filtro == 'notas') {
-
-            $articulos = Articulo::where('notas', 'like', '%'. $buscar .'%')->paginate(6);
+        } elseif ($filtro == 'notas')
+        {
+            $articulos = Articulo::where('notas', 'like', '%'. $buscar .'%')
+                ->orderBy('nombre', 'asc')
+                ->paginate(6);
             $mensaje = 'Artículos que contienen <strong>'. $buscar .'</strong> en las notas.';
             Session::flash('mensajeOk', $mensaje);
+
+        } elseif ($filtro == 'id')
+        {
+            $articulos = Articulo::where('id', '=', $buscar)->paginate(1);
         }
 
         return View::make('articulos.listado')->with(compact('articulos', 'input'));
@@ -159,5 +167,62 @@ public function postEditar()
         }
 
     } #postNuevo
+
+    public function postCambiarImagen($idArticulo)
+    {
+        try
+        {
+            $input = Input::all();
+
+            $extensiones = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
+
+            $file = Input::file("imagen");
+            $extension = strtolower($file->getClientOriginalExtension());
+            $size = Input::file('imagen')->getClientOriginalExtension();
+
+            if(!in_array($extension, $extensiones))
+            {
+                return 'Tipo de archivo inválido';
+
+            } elseif($file->getSize() > 10000000)
+            {
+                return 'El tamaño de la imagen no puede ser mayor a 10000KB.';
+            }
+
+            // $dataUpload = array(
+            //     "image" => $file
+            // );
+
+            $articuloImagen = ArticuloImagen::find($idArticulo);
+
+            if(empty($articuloImagen))
+            {
+                $articuloImagen = new ArticuloImagen();
+                $articuloImagen->articulo_id = $idArticulo;
+                $articuloImagen->ruta = $idArticulo .'.'. $extension;
+                $articuloImagen->user_id = Auth::user()->id;
+                $articuloImagen->save();
+
+                Image::make($file->getRealPath())->heighten(640)->save('img/articulos/'. $articuloImagen->ruta);
+
+                return '<span class="alert alert-success">Imagen subida con éxito.</span>';
+
+            } else
+            {
+                $articuloImagen->ruta = $idArticulo .'.'. $extension;
+                $articuloImagen->user_id = Auth::user()->id;
+                $articuloImagen->save();
+
+                Image::make($file->getRealPath())->heighten(640)->save('img/articulos/'. $articuloImagen->ruta);
+
+                return '<span class="alert alert-success">Imagen actualizada con éxito.</span>';
+            }
+
+        } catch (Exception $e)
+        {
+            return '<span class="alert alert-danger">No fue posible guardar la imagen.'. $e->message() .'</span>';
+        }
+
+    } #postCambiarImagen
 
 } #ArticuloController

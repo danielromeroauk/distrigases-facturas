@@ -8,6 +8,7 @@
 </head>
 <body>
 
+  @yield('encabezado')
 
   <div id="fecha">
     <p class="derecha" id="consecutivo"><strong>Cotizaci&oacute;n No. {{ $cotizacion->id }}</strong></p>
@@ -99,6 +100,7 @@
     Gerente comercial
   </p>
 
+@yield('pie')
 
 </body>
 </html>

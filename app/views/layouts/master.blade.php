@@ -37,9 +37,10 @@
     {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/jquery-ui.js" />--}}
     {{-- HTML::script('js/jquery-ui.js') --}}
 
-    {{ HTML::style('css/distrigases.css') }}
-
-    {{ HTML::script('js/distrigases.js') }}
+    @section('head')
+        {{ HTML::style('css/distrigases.css') }}
+        {{ HTML::script('js/distrigases.js') }}
+    @show
 
 </head>
 <body>

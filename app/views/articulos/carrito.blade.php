@@ -26,7 +26,9 @@
                 {{ number_format($item['cantidad'], 2, ',', '.') }}
               </td>
               <td>
-                {{ $item['articulo']->nombre }}
+                <a href="{{ url('articulos/filtro?filtro=id&buscar='. $item['articulo']->id) }}">
+                  {{ $item['articulo']->nombre }}
+                </a>
               </td>
               <td class="derecha">
                 {{ number_format( $item['articulo']->precio, 2, ',', '.' ) }}

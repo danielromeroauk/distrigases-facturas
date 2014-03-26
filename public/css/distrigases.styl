@@ -1,5 +1,5 @@
 body
-    font "Merriweather Sans", sans-serif
+    font-family "Merriweather Sans", sans-serif
 h1, h2, h3
     font-family "Oswald", sans-serif
 #acordion
@@ -22,6 +22,36 @@ h1, h2, h3
     padding-right 0
 .derecha
     text-align right
+.imagen
+    text-align center
+    img
+        max-height 360px
+    input[type=file]
+        position absolute
+        visibility hidden
+        width 0
+        z-index -9999
+    .file-save
+        text-align center
+    .preview
+        border-bottom 0
+        margin 0 auto
+        position relative
+        a
+            bottom 5px
+            display none
+            left 5px
+            position absolute
+            right 5px
+        .file-info
+            display block
+            left 5px
+            position absolute
+            right 5px
+            text-align center
+            top 35px
+            div
+                margin 0 auto
 .numero
     display inline-block
     width 8em

@@ -107,6 +107,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Thujohn\Pdf\PdfServiceProvider',
+		'Intervention\Image\ImageServiceProvider'
 
 	),
 
@@ -174,6 +175,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'PDF' => 'Thujohn\Pdf\PdfFacade',
+		'Image' => 'Intervention\Image\Facades\Image'
 
 	),
 

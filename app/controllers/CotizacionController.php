@@ -225,8 +225,7 @@ class CotizacionController extends BaseController
 
             if($membrete == 1)
             {
-                #$html = View::make('cotizaciones.membrete')->with(compact('cotizacion'));
-                $html = 'Está entrando en membrete == true';
+                $html = View::make('cotizaciones.membrete')->with(compact('cotizacion'));
 
             } else {
 

@@ -9,4 +9,9 @@ class Articulo extends Eloquent {
 		return $this->belongsTo('User');
 	}
 
+    public function imagen()
+    {
+        return $this->hasOne('ArticuloImagen');
+    }
+
 }
