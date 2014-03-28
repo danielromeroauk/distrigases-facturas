@@ -68,7 +68,7 @@ public function postEditar()
         $input = Input::all();
 
         $reglas = array(
-            'nombre' => 'required|max:255',
+            'nombre' => 'required|max:255|unique:articulos,nombre,'.$input['id'],
             'notas' => 'max:255'
         );
 
@@ -203,7 +203,7 @@ public function postEditar()
                 $articuloImagen->user_id = Auth::user()->id;
                 $articuloImagen->save();
 
-                Image::make($file->getRealPath())->heighten(640)->save('img/articulos/'. $articuloImagen->ruta);
+                Image::make($file->getRealPath())->heighten(360)->save('img/articulos/'. $articuloImagen->ruta);
 
                 return '<span class="alert alert-success">Imagen subida con éxito.</span>';
 
@@ -213,14 +213,14 @@ public function postEditar()
                 $articuloImagen->user_id = Auth::user()->id;
                 $articuloImagen->save();
 
-                Image::make($file->getRealPath())->heighten(640)->save('img/articulos/'. $articuloImagen->ruta);
+                Image::make($file->getRealPath())->heighten(360)->save('img/articulos/'. $articuloImagen->ruta);
 
                 return '<span class="alert alert-success">Imagen actualizada con éxito.</span>';
             }
 
         } catch (Exception $e)
         {
-            return '<span class="alert alert-danger">No fue posible guardar la imagen.'. $e->message() .'</span>';
+            return '<span class="alert alert-danger">No fue posible guardar la imagen.</span>';
         }
 
     } #postCambiarImagen

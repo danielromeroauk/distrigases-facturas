@@ -107,7 +107,7 @@ class UserController extends BaseController {
 
         $reglas = array(
             'password' => 'required',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$input['id'],
             'nombre' => 'required|max:255'
         );
 

@@ -70,7 +70,7 @@ public function postEditar()
         $input = Input::all();
 
         $reglas = array(
-            'nit' => 'required|max:100',
+            'nit' => 'required|max:100|unique:clientes,nit,'.$input['id'],
             'nombre' => 'required|max:255',
             'direccion' => 'max:255',
             'telefono' => 'max:100',
